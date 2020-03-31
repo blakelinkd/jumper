@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include "Wall.hpp"
+
 
 
 class Game {
@@ -8,6 +10,7 @@ public:
 	
 	Game();
 	void run();
+	Wall mTop;
 
 private:
 	void processEvents();

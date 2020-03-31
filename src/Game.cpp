@@ -2,9 +2,10 @@
 #include <iostream>
 
 Game::Game() 
-: mWindow(sf::VideoMode(1024, 768), "Jumper!"), mPlayer()
+: mWindow(sf::VideoMode(1024, 768), "Jumper!"), mPlayer(), mTop(0, 0)
 {
 
+	//Wall top(800, 600);
 	rads = 0;
 	mPlayer.setRadius(40.f);
 	mPlayer.setPosition(100.f, 100.f);
@@ -101,5 +102,7 @@ void Game::render() {
 	mWindow.clear();
 	mWindow.draw(mPlayer);
 	mWindow.draw(mPlayer2);
+	// walls
+	mWindow.draw(mTop);
 	mWindow.display();
 }

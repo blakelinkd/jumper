@@ -1,43 +1,41 @@
-#include "Game.hpp"
+#include "Wall.hpp"
 #include <iostream>
 
-Game::Game() 
-: mWindow(sf::VideoMode(1024, 768), "Jumper!"), mPlayer()
-{
 
-	rads = 0;
-	mPlayer.setRadius(40.f);
-	mPlayer.setPosition(100.f, 100.f);
-	mPlayer.setFillColor(sf::Color::Cyan);
-	mPlayer2.setRadius(4.f);
-	mPlayer2.setPosition(200.f, 200.f);
-	mPlayer2.setFillColor(sf::Color::Magenta);
+Wall::Wall() {
+
+}
+Wall::Wall(int width, int height) 
+{
+	background.create(32, 32, sf::Color::Green);
+
 	
+
+	
+	for (double i = 0; i <= background.getSize().x * background.getSize().y; i++) {
+		int x = (int)i % 32;
+		int y = floor(i / 32);
+		std::cout << "i = " << i << ", i % 32 = " << (int)i % 32 << ", floor(i / 32) = " << floor(i / 32) << std::endl;
+		if ((int)i % 2 == 0) {
+			background.setPixel(x, y, sf::Color::Red);
+		}
+		// std::cout << background.getPixel((int)i % 32, floor(i / 32)).toInteger() << " " << std::endl;
+	}
+	std::cout << "first pixel: " << background.getPixel(0, 0).toInteger() << "last pixel: " << background.getPixel(32, 32).toInteger() << std::endl;
+	/* if (! this->texture.create(32, 32)) {
+		std::cerr << "could not create texture." << std::endl;
+	} */
+	if (! texture.loadFromImage(background, sf::IntRect(0, 0, 32, 32))) {
+		std::cerr << "Cannot load image. " << std::endl;
+	}
+	//texture.update(background);
+	
+	this->setTexture(texture);
+	this->scale(16.f, 16.f);
+
 }
-void Game::run()
-{
-	sf::Clock clock;
-	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 
-  while(mWindow.isOpen()) 
-  {
-
-	  processEvents();
-	  timeSinceLastUpdate += clock.restart();
-	  while (timeSinceLastUpdate > TimePerFrame)
-	  {
-		  timeSinceLastUpdate -= TimePerFrame;
-		  processEvents();
-		  update(TimePerFrame);
-	  }
-	  render();
-  }
-
-  
-}
-
-void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
+void Wall::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
 	
 	if (key == sf::Keyboard::W)
@@ -50,7 +48,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		mIsMovingRight = isPressed;
 }
 
-void Game::processEvents()
+void Wall::processEvents()
 {
 	sf::Event event;
 	while (mWindow.pollEvent(event))
@@ -71,7 +69,11 @@ void Game::processEvents()
 	}
 }
 
-void Game::update(sf::Time deltaTime)
+void Wall::update() {
+
+
+}
+void Wall::update(sf::Time deltaTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
 	if (mIsMovingUp)
@@ -83,23 +85,11 @@ void Game::update(sf::Time deltaTime)
 	if (mIsMovingRight)
 		movement.x += 1.f;
 	
-	mPlayer.move(movement);
+	this->move(movement);
 
-	sf::Vector2f bounce(0.f, 1.f);
 	
-
-	bounce.y *= 0.4 * sin(M_PI_2);
-	bounce.x *= 0.4 * sin(M_PI_2);
-	rads += deltaTime.asSeconds()/60;
-	if (rads >360)
-		rads = 0;
-	
-	mPlayer2.move(bounce);
 
 }
-void Game::render() {
-	mWindow.clear();
-	mWindow.draw(mPlayer);
-	mWindow.draw(mPlayer2);
-	mWindow.display();
+void Wall::render() {
+	
 }
