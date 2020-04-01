@@ -1,30 +1,29 @@
-#include "Wall.hpp"
+#include "Player.hpp"
 #include <iostream>
 
-
-Wall::Wall() {
+Player::Player(std::string texture_path) {
+	std:: cout << "Player(" << texture_path << ") constructor " << std::endl;
+	texture.loadFromFile(texture_path);
+	this->setOrigin(floor(texture.getSize().x / 2), floor(texture.getSize().y / 2));
+	this->setTexture(texture); 
+	this->setPosition(100, 100);
+}
+Player::Player() {
+	std::cout << "Player() default constructor" << std::endl;
+	texture.loadFromFile("assets/ship.png");
+	this->setOrigin(floor(texture.getSize().x / 2), floor(texture.getSize().y / 2));
+	this->setTexture(texture); 
+	this->setPosition(600, 400);
 
 }
-Wall::Wall(int width, int height) 
+Player::Player(int width, int height) 
 {
-	background.create(width, height, sf::Color::Green);
 	
-	for (double i = 0; i < background.getSize().x * background.getSize().y; i++) {
-		unsigned int x = (int)i % width;
-		unsigned int y = floor(i / width);
-		if ((int)i % 2 == 0) {
-			background.setPixel(x, y, sf::Color::Red);
-		}
-	}
-
-	if (! texture.loadFromImage(background, sf::IntRect(0, 0, width, height))) {
-		std::cerr << "Cannot load image. " << std::endl;
-	}
-	this->setTexture(texture);
+	
 
 }
 
-void Wall::pulsate(sf::Color color, sf::Time deltaTime) {
+void Player::pulsate(sf::Color color, sf::Time deltaTime) {
 	for (double i = 0; i < background.getSize().x * background.getSize().y; i++) {
 		unsigned int x = (int)i % this->background.getSize().x;
 		unsigned int y = floor(i / this->background.getSize().x);
@@ -39,7 +38,7 @@ void Wall::pulsate(sf::Color color, sf::Time deltaTime) {
 	this->texture.update(background);
 }
 
-void Wall::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
+void Player::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
 	
 	if (key == sf::Keyboard::W)
@@ -52,7 +51,7 @@ void Wall::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		mIsMovingRight = isPressed;
 }
 
-void Wall::processEvents()
+void Player::processEvents()
 {
 	sf::Event event;
 	while (mWindow.pollEvent(event))
@@ -73,11 +72,11 @@ void Wall::processEvents()
 	}
 }
 
-void Wall::update() {
+void Player::update() {
 
 
 }
-void Wall::update(sf::Time deltaTime)
+void Player::update(sf::Time deltaTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
 	if (mIsMovingUp)
@@ -94,6 +93,6 @@ void Wall::update(sf::Time deltaTime)
 	
 
 }
-void Wall::render() {
+void Player::render() {
 	
 }

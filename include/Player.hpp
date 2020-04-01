@@ -2,11 +2,12 @@
 #include <cmath>
 
 
-class Wall : public sf::Sprite {
+class Player : public sf::Sprite {
 
 public:
-	Wall();
-	Wall(int width, int height);
+	Player();
+	Player(std::string texture_path);
+	Player(int width, int height);
 	void pulsate(sf::Color, sf::Time deltaTime);
 
 private:

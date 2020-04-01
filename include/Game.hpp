@@ -1,6 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <cmath>
 #include "Wall.hpp"
+#include "Player.hpp"
+#include "HUD.hpp"
+#include "Grid.hpp"
+#include "Missile.hpp"
 
 
 
@@ -11,6 +16,12 @@ public:
 	Game();
 	void run();
 	Wall mTop;
+	HUD hud;
+	Player player;
+	Player planet_earth;
+	Missile missile;
+	Grid grid;
+	
 
 private:
 	void processEvents();
@@ -22,6 +33,7 @@ private:
 	bool mIsMovingDown = false;
 	bool mIsMovingLeft = false;
 	bool mIsMovingRight = false;
+	bool mIsMissileLaunched = false;
 
 private:
 	sf::RenderWindow mWindow;
