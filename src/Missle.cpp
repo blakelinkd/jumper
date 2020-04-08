@@ -6,6 +6,7 @@ Missile::Missile() {
 
     texture.loadFromFile("assets/missile.png");
     this->setTexture(texture);
+    //this->setOrigin(sf::Vector2f(this->texture.getSize().x/2, 0));
     
 }
 

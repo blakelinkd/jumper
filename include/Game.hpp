@@ -21,6 +21,8 @@ public:
 	Player planet_earth;
 	Missile missile;
 	Grid grid;
+	float angleBetween(sf::Vector2f a, sf::Vector2f b);
+	float dot(sf::Vector2f v1, sf::Vector2f v2);
 	
 
 private:
@@ -34,6 +36,14 @@ private:
 	bool mIsMovingLeft = false;
 	bool mIsMovingRight = false;
 	bool mIsMissileLaunched = false;
+	int clickX;
+	int clickY;
+	float dx;
+	float dy;
+	float length;
+	float angle;
+	float deg;
+	sf::Vector2f direction;
 
 private:
 	sf::RenderWindow mWindow;
